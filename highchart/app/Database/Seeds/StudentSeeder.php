@@ -4,8 +4,6 @@ namespace App\Database\Seeds;
 
 use App\Models\StudentModel;
 use CodeIgniter\Database\Seeder;
-use Faker\Factory;
-
 class StudentSeeder extends Seeder
 {
 	public function run()
@@ -21,14 +19,11 @@ class StudentSeeder extends Seeder
 
         // $student_obj->insertBatch($data);
 		$start = microtime(true);
-		for($j = 0; $j < 100; $j++){
+		for($j = 0; $j < 1000; $j++){
 			$data = [];
 
-			for($i = 0; $i < 100; $i++){
-
-				//$data[] = $this->generateTestStudent();
+			for($i = 0; $i < 1000; $i++){
 				$data[] = $this->generateTest();
-				
 			}
 			error_log(">>>>>>>>>>>>". $j);
 			$student_obj = new StudentModel();
@@ -39,63 +34,6 @@ class StudentSeeder extends Seeder
 
 		
     }
-
-    public function generateTestStudent()
-    {
-        $faker = Factory::create();
-
-        return [
-			"marks"=> $faker->numberBetween(0, 100),
-			"semester"=> $faker->numberBetween(1, 2),
-			"year"=> $faker->numberBetween(2000, 2010),
-			"grade"=> $faker->numberBetween(1, 12),
-            "studentId" => $faker->randomElement([
-                "Student1",
-				"Student2",
-				"Student3",
-				"Student4",
-				"Student5",
-				"Student6",
-				"Student7",
-				"Student8",
-				"Student9",
-				"Student10",
-				"Student11",
-				"Student12",
-				"Student13",
-				"Student14",
-				"Student15",
-				"Student16",
-				"Student17",
-				"Student18",
-				"Student19",
-				"Student20",
-            ]),
-			"subject" => $faker->randomElement([
-				"Subject1",
-				"Subject2",
-				"Subject3",
-				"Subject4",
-				"Subject5",
-				"Subject6",
-				"Subject7",
-				"Subject8",
-				"Subject9",
-				"Subject10",
-				"Subject11",
-				"Subject12",
-				"Subject13",
-				"Subject14",
-				"Subject15",
-				"Subject16",
-				"Subject17",
-				"Subject18",
-				"Subject19",
-				"Subject20",
-			]),
-        ];
-    }
-
 	public function generateTest()
     {
 		$studentNames =[
