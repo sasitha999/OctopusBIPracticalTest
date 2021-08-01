@@ -1,4 +1,4 @@
-# OctupusBIPracticalTest
+# OctopusBIPracticalTest
 Practical Test - Senior Software Engineer (PHP)
 
 1 . Clone the repo `https://github.com/sasitha999/OctopusBIPracticalTest`
