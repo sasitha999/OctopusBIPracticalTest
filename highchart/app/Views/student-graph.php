@@ -5,28 +5,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>  
 
 <div class="container">
-  <h2 style="text-align:center;">Student Perfroamce In All Subject</h2>
+  <h2 style="text-align:center;">Student Performance In All Subject</h2>
   <div class="panel panel-default">
     <div class="panel-heading">Student : - </div>
     <div class="panel-heading">
-        <select id ="select-user" class="js-example-basic">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-        <select id ="select-subject">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
+        <div class="">
+            <select id ="select-user" class=" form-control search">
+                <?php foreach ($studentNames as $key => $studentName) { ?>
+                    <option value="<?=$studentName?>"><?=$studentName?></option>
+                <?php } ?>
+            </select>
+            <select id ="select-subject" class=" form-control search" multiple="multiple">
+                <?php foreach ($subjectNames as $key => $subjectName) { ?>
+                    <option value="<?=$subjectName?>"<?php echo ($key == 0) ? "selected":"";?> ><?=$subjectName?></option>
+                <?php } ?>
+            </select>
+        </div>
     </div>
     
     <div class="panel-body">
@@ -34,44 +32,44 @@
     </div>
   </div>
 </div>
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
 <script>
-    $(function(){
-        Highcharts.chart('container', {
 
-            title: {
-                text: 'StudentName\'s Performace  in 2000 - 2019 Semeter Wise'
+
+    $(document).ready(function() {
+       
+        $('#select-user').trigger('change');
+    });
+    function renderChart(years, subejctData){
+
+        var charOption ={
+            chart: {
+                type: 'spline',
+                scrollablePlotArea: {
+                    minWidth: 600,
+                    scrollPositionX: 1
+                }
             },
-
+            title: {
+                text: 'Student Performace  in 2000 - 2009'
+            },
             yAxis: {
                 title: {
                     text: 'Avarage Marks For Subject',
-                    
                 },
                 max:100
             },
-
             xAxis: {
                 title: {
                     text: 'Semester wise Year',
-                    
                 },
-                categories :<?= $years ?>,
+                categories : years,
             },
-
             legend: {
                 layout: 'vertical',
                 align: 'right',
                 verticalAlign: 'middle'
             },
-
-            series: <?= $subjectData ?>,
-
+            series: subejctData,
             responsive: {
                 rules: [{
                     condition: {
@@ -86,10 +84,41 @@
                     }
                 }]
             }
+        };
 
+        Highcharts.chart('container', charOption);
+    }
+    $('.search').select2({});
+
+    $('.search').on('change', function() {
+
+        var selectedUser = $('#select-user').select2('data').map(function(elem){ return elem.text });
+        var subjects = $('#select-subject').select2('data').map(function(elem){ return elem.text });
+        if(subjects.length > 0){
+            $.ajax({
+                url: '<?php echo base_url('/student-graph');?>',
+                type:'post',
+                dataType:'json',
+                data: {
+                    student:selectedUser,
+                    subjects:subjects
+                },
+                success: function(data) {
+                    renderChart(data.years,data.subjectData      )
+                }
             });
-    });
+        } else {
+            alert("Select Subject Please")
+        }
+        
+  });       
 </script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
 
 </body>
 </html>
