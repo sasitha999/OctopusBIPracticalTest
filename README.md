@@ -22,8 +22,11 @@ Practical Test - Senior Software Engineer (PHP)
       
 4 . In `OctupusBIPracticalTest/highchart` run `composer install` to install packages.
 
-5 . Create seed data using `php spark db:seed StudentSeeder`, (This will take some considerable time amount)
+5 . Copy `env` to `.env` and update database settings.
 
-6 . Run development server `php  spark serve`
+
+6 . Create seed data using `php spark db:seed StudentSeeder`, (This will take some considerable time amount)
+
+7 . Run development server `php  spark serve`
 
 `

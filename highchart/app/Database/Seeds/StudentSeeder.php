@@ -22,7 +22,7 @@ class StudentSeeder extends Seeder
 		for($j = 0; $j < 1000; $j++){
 			$data = [];
 
-			for($i = 0; $i < 1000; $i++){
+			for($i = 0; $i < 100; $i++){
 				$data[] = $this->generateTest();
 			}
 			error_log(">>>>>>>>>>>>". $j);
@@ -83,7 +83,7 @@ class StudentSeeder extends Seeder
         return [
 			"marks" => rand(0, 100),
 			"semester" => rand(1, 2),
-			"year" => rand(2000, 2010),
+			"year" => rand(2000, 2009),
 			"grade" => rand(1, 12),
             "studentId" => $studentNames[array_rand($studentNames)],
 			"subject" => $subjectNames[array_rand($subjectNames)],
