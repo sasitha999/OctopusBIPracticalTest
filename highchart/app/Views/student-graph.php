@@ -8,12 +8,27 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body>  
 
 <div class="container">
-  <h2 style="text-align:center;">Bar Chart in CodeIgniter 4 - Online Web Tutor</h2>
+  <h2 style="text-align:center;">Student Perfroamce In All Subject</h2>
   <div class="panel panel-default">
-    <div class="panel-heading">Student</div>
+    <div class="panel-heading">Student : - </div>
+    <div class="panel-heading">
+        <select id ="select-user" class="js-example-basic">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+        <select id ="select-subject">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+    </div>
+    
     <div class="panel-body">
         <div id="container"></div>
     </div>
@@ -30,20 +45,22 @@
         Highcharts.chart('container', {
 
             title: {
-                text: 'Solar Employment Growth by Sector, 2010-2016'
-            },
-
-            subtitle: {
-                text: 'Source: thesolarfoundation.com'
+                text: 'StudentName\'s Performace  in 2000 - 2019 Semeter Wise'
             },
 
             yAxis: {
                 title: {
-                    text: 'Number of Employees'
-                }
+                    text: 'Avarage Marks For Subject',
+                    
+                },
+                max:100
             },
 
             xAxis: {
+                title: {
+                    text: 'Semester wise Year',
+                    
+                },
                 categories :<?= $years ?>,
             },
 
@@ -53,31 +70,12 @@
                 verticalAlign: 'middle'
             },
 
-
-            // series: [{
-            //     name: 'Installation',
-            //     data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-            // }, {
-            //     name: 'Manufacturing',
-            //     data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-            // }, {
-            //     name: 'Sales & Distribution',
-            //     data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-            // }, {
-            //     name: 'Project Development',
-            //     data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-            // }, {
-            //     name: 'Other',
-            //     data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-            // }],
-
-
             series: <?= $subjectData ?>,
 
             responsive: {
                 rules: [{
                     condition: {
-                        maxWidth: 500
+                        maxWidth: 1500   
                     },
                     chartOptions: {
                         legend: {

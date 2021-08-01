@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
 <body>
 
 <div class="container">
-  <h2 style="text-align:center;">Bar Chart in CodeIgniter 4 - Online Web Tutor</h2>
+  <h2 style="text-align:center;">Total and Avarage Mark For Subject</h2>
   <div class="panel panel-default">
     <div class="panel-heading">Bar Chart in CodeIgniter 4</div>
     <div class="panel-body">
@@ -27,17 +28,12 @@
 
 <script>
     $(function(){
-
-        ////////////////////////////////////////////////////////
         Highcharts.chart('bar-chart', {
             chart: {
                 zoomType: 'xy'
             },
             title: {
-                text: 'Average Monthly Temperature and Rainfall in Tokyo'
-            },
-            subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: 'Total and Avarage Mark For Subject'
             },
             xAxis: [{
                 categories: <?= $subejcts ?>,
@@ -51,18 +47,21 @@
                     }
                 },
                 title: {
-                    text: 'Totla Marks',
+                    text: 'Avarage Marks',
                     style: {
                         color: Highcharts.getOptions().colors[1]
                     }
-                }
+                },
+                min:0,
+                max:100,
             }, { // Secondary yAxis
                 title: {
-                    text: 'Avarage Marks',
+                    text: 'Total Marks',
                     style: {
                         color: Highcharts.getOptions().colors[0]
                     }
                 },
+               
                 labels: {
                     format: '{value}',
                     style: {
@@ -90,24 +89,13 @@
                 type: 'column',
                 yAxis: 1,
                 data: <?= $totals ?>,
-                tooltip: {
-                    valueSuffix: ' mm'
-                }
+               
 
             }, {
                 name: 'Avarage Marks',
                 type: 'spline',
                 data: <?= $avarages ?>,
-                tooltip: {
-                    valueSuffix: '°C'
-                }
             }]
         });
-        ////////////////////////////////////////////////////////
-
-        
     });
 </script>
-
-</body>
-</html>

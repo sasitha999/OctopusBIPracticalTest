@@ -28,58 +28,7 @@
 
 <script>
     $(function(){
-
-        ////////////////////////////////////////////////////////
-       // Generate test data with continuous Y values.
-    function getExperimentData() {
-        var data = [],
-            off = 0.3 + 0.2 * Math.random(),
-            i;
-        for (i = 0; i < 200; i++) {
-            data.push(
-                Math.round(1000 * (off + (Math.random() - 0.5) * (Math.random() - 0.5)))
-            );
-        }
-        return data;
-    }
-
-    function getBoxPlotData(values) {
-        var sorted = values.sort(function (a, b) {
-            return a - b;
-        });
-
-        return {
-            low: sorted[0],
-            q1: sorted[Math.round(values.length * 0.25)],
-            median: sorted[Math.round(values.length * 0.5)],
-            q3: sorted[Math.round(values.length * 0.75)],
-            high: sorted[sorted.length - 1]
-        };
-    }
-
-    var experiments = [
-        getExperimentData(),
-        getExperimentData(),
-        getExperimentData(),
-        getExperimentData(),
-        getExperimentData()
-    ];
-
-    var scatterData = experiments
-        .reduce(function (acc, data, x) {
-            return acc.concat(data.map(function (value) {
-                return [x, value];
-            }));
-        }, []);
-
-    var boxplotData = experiments
-        .map(getBoxPlotData);
-    console.log("FFFFFFFFFFFFFFFFFff");
-    console.log(<?= $scatterData ?>);
-    //.log(<?= $boxPlot ?>);
-
-    console.log(scatterData);
-
+        
     Highcharts.chart('container', {
 
         title: {
@@ -124,7 +73,21 @@
             tooltip: {
                 pointFormat: 'Value: {point.y}'
             }
-        }]
+        }],
+        responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 2000   
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
     });
         ////////////////////////////////////////////////////////
 

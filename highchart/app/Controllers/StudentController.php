@@ -25,7 +25,8 @@ class StudentController extends BaseController
 			$averageMarksForSubejct = $student_obj->selectAvg('marks')->where(['subject' => $subejct['subject']])->findAll();
 			$subjectAvarages[] = floatval($averageMarksForSubejct[0]['marks']);
 		}
-		return view("subject-graph", [
+		echo view('templates/header');
+		echo view("subject-graph", [
 			"subejcts" => json_encode($subjectNames),
 			"totals" => json_encode($subjectTotals),
 			"avarages" => json_encode($subjectAvarages),
@@ -56,7 +57,8 @@ class StudentController extends BaseController
 			$boxPlotData[] = $this->box_plot_values($marksArray);
 		
 		}
-		return view("box-chart", [
+		echo view('templates/header');
+		echo view("box-chart", [
 			"subejcts" => json_encode($subjectNames),
 			"boxPlot" => json_encode($boxPlotData),
 			"scatterData" => json_encode($sctterData),
@@ -98,7 +100,6 @@ class StudentController extends BaseController
 		foreach($years as  $year){
 			$yearsWithSemester [] = $year['year']." - 1";
 			$yearsWithSemester [] = $year['year']." - 2";
-
 		}
 		foreach($subejcts as $subejct){
 			$subjectNames [] = $subejct['subject'];
@@ -126,19 +127,19 @@ class StudentController extends BaseController
 
 			}	
 			$subjectDataArray [] =  ['name' => $subejct['subject'] , 'data' => $marksData];
-
 			
 		}
 
 		foreach($subejcts as $subejct){
-			
 			$subjectNames [] = $subejct['subject'];
 			$totalMarksForSubejct = $student_obj->selectSum('marks')->where(['subject' => $subejct['subject']])->findAll();
 			$subjectTotals [] =  floatval($totalMarksForSubejct[0]['marks']);
 			$averageMarksForSubejct = $student_obj->selectAvg('marks')->where(['subject' => $subejct['subject']])->findAll();
 			$subjectAvarages[] = floatval($averageMarksForSubejct[0]['marks']);
 		}
-		return view("student-graph", [
+		
+		echo view('templates/header');
+		echo view("student-graph", [
 			"years" => json_encode($yearsWithSemester),
 			"subjectData" => json_encode($subjectDataArray),
 			"avarages" => json_encode($subjectAvarages),
